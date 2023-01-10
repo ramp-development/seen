@@ -14,6 +14,28 @@ window.Webflow.push(() => {
     });
   };
 
+  const CURSOR = () => {
+    const WRAPPER = document.querySelector('.cursor_component');
+    const CURSOR_SMALL = WRAPPER?.querySelector('.cursor.is-small');
+    const CURSOR_LARGE = WRAPPER?.querySelector('.cursor.is-large');
+    const INTERACTIVE_ELEMENTS = [
+      ...document.querySelectorAll(
+        'a, input, label.w-radio, textarea, label.w-checkbox, .button, .slider_button'
+      ),
+    ];
+    INTERACTIVE_ELEMENTS.forEach((ELEMENT) => {
+      ELEMENT.addEventListener('mouseover', () => {
+        CURSOR_SMALL.style.fontSize = '2rem';
+        CURSOR_LARGE.style.fontSize = '0.9rem';
+      });
+
+      ELEMENT.addEventListener('mouseout', () => {
+        CURSOR_SMALL.style.fontSize = '1rem';
+        CURSOR_LARGE.style.fontSize = '1rem';
+      });
+    });
+  };
+
   const SERVICE_CARDS = () => {
     const CARDS: HTMLLinkElement[] = [...document.querySelectorAll('a.services_card')];
     if (CARDS.length === 0) return;
@@ -45,6 +67,7 @@ window.Webflow.push(() => {
   };
 
   NAV_SCROLL();
+  CURSOR();
   SERVICE_CARDS();
   CONTACT_MODAL();
   CARD_TAGS();
