@@ -66,9 +66,37 @@ window.Webflow.push(() => {
     });
   };
 
+  const FILTERS = () => {
+    const FILTERS_MENU = document.querySelector('.filters_menu');
+    if (!FILTERS_MENU) return;
+    window.fsAttributes = window.fsAttributes || [];
+    window.fsAttributes.push([
+      'cmsfilter',
+      (filterInstances) => {
+        // The callback passes a `filterInstances` array with all the `CMSFilters` instances on the page.
+        const [filterInstance] = filterInstances;
+        filterInstance.listInstance.on('renderitems', (renderedItems) => {
+          window.scrollBy(0, 1);
+          window.scrollBy(0, -1);
+        });
+      },
+    ]);
+
+    const FILTERS_EMPTY = document.querySelector('.collection-empty');
+    if (!FILTERS_EMPTY) return;
+    const RESET = FILTERS_MENU.querySelector('[fs-cmsfilter-element="reset"]');
+    const TRIGGERS = [...FILTERS_EMPTY.querySelectorAll('[fs-cmsfilter-element="reset"]')];
+    TRIGGERS.forEach((TRIGGER) => {
+      TRIGGER.addEventListener('click', () => {
+        simulateEvent(RESET, 'click');
+      });
+    });
+  };
+
   NAV_SCROLL();
   CURSOR();
   SERVICE_CARDS();
   CONTACT_MODAL();
   CARD_TAGS();
+  FILTERS();
 });
