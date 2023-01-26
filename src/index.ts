@@ -37,12 +37,12 @@ window.Webflow.push(() => {
   };
 
   const SERVICE_CARDS = () => {
-    const CARDS: HTMLLinkElement[] = [...document.querySelectorAll('a.services_card')];
+    const CARDS: HTMLLinkElement[] = [...document.querySelectorAll('a.service-card')];
     if (CARDS.length === 0) return;
     CARDS.forEach((CARD) => {
-      const LINK = CARD.parentElement.querySelector('[data-service="link"]')?.textContent;
-      if (!LINK) return;
-      CARD.href = LINK;
+      const QUERY = CARD.querySelector('input[name="link"]').value;
+      if (!QUERY) return;
+      CARD.href += `?category=${QUERY}`;
     });
   };
 
